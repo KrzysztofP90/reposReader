@@ -16,18 +16,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RepoLinksServiceTest {
 
     private List<String> actualList;
+    private int firstIndex;
+    private int middleIndex;
+    private int lastIndex;
 
     @BeforeEach
     public void init() {
         ReposLinksService service = new ReposLinksService();
         this.actualList = service.getAllReposLinksForUser("KrzysztofP90");
+        firstIndex = 0;
+        middleIndex = actualList.size() / 2;
+        lastIndex = actualList.size() - 1;
     }
 
     @Test
     public void testIfFirstMiddleAndLastRepoLinksStartFromHttps() {
-        int firstIndex = 0;
-        int middleIndex = actualList.size() / 2;
-        int lastIndex = actualList.size() - 1;
         String expectedHttps = "https://";
         String actualFirstHttps = actualList.get(firstIndex).substring(0,8);
         String actualMiddleHttps = actualList.get(middleIndex).substring(0,8);
@@ -41,9 +44,6 @@ public class RepoLinksServiceTest {
     @Test
     public void checkIfFirstMiddleAndLastRepoLinksContainCorrectGitHubAddressWithOwner() {
         String owner = "KrzysztofP90";
-        int firstIndex = 0;
-        int middleIndex = actualList.size() / 2;
-        int lastIndex = actualList.size() - 1;
         String githubAddressWithOwner = "https://github.com/" + owner;
 
         assertTrue(actualList.get(firstIndex).contains(githubAddressWithOwner));
